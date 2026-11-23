@@ -1,0 +1,17 @@
+# Large dataset archives and images should be hosted on Kaggle, not GitHub
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.pth
+*.pt
+*.ckpt
+*.jpg
+*.jpeg
+*.png
+*.tiff
+*.tif
+__pycache__/
+.ipynb_checkpoints/
+.env
+kaggle.json
