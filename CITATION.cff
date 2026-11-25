@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use BatterySurAD or any subset in research, please cite the PAKDD 2026 paper."
+title: "BatterySurAD: A Dataset for Anomaly Detection on Pouch-Type Reflective Battery Surfaces with Spatial Zone Annotations"
+type: dataset
+authors:
+  - family-names: Park
+    given-names: Jiwon
+  - family-names: Kim
+    given-names: Dohwan
+  - family-names: Choi
+    given-names: Bongseok
+  - family-names: Lee
+    given-names: Giljun
+  - family-names: Oh
+    given-names: Hayoung
+license: CC-BY-4.0
+url: https://www.kaggle.com/datasets/roseannejiwonpark/batterysurad
+preferred-citation:
+  type: conference-paper
+  title: "BatterySurAD: A Dataset for Anomaly Detection on Pouch-Type Reflective Battery Surfaces with Spatial Zone Annotations"
+  authors:
+    - family-names: Park
+      given-names: Jiwon
+    - family-names: Kim
+      given-names: Dohwan
+    - family-names: Choi
+      given-names: Bongseok
+    - family-names: Lee
+      given-names: Giljun
+    - family-names: Oh
+      given-names: Hayoung
+  year: 2026
+  doi: 10.1007/978-981-92-1462-4_22
+  collection-title: "Advances in Knowledge Discovery and Data Mining"
+  publisher:
+    name: Springer
+  conference:
+    name: PAKDD 2026

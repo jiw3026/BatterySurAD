@@ -2,45 +2,104 @@
 
 **BatterySurAD: A Dataset for Anomaly Detection on Pouch-Type Reflective Battery Surfaces with Spatial Zone Annotations**
 
-Research dataset for reflective pouch-type battery surface anomaly detection with four defect classes (scratching, contamination, folding, denting), two views (front/back), and 15 spatial zones.
+[![Paper: PAKDD 2026](https://img.shields.io/badge/Paper-PAKDD%202026-2563eb)](https://doi.org/10.1007/978-981-92-1462-4_22)
+[![Dataset: Kaggle](https://img.shields.io/badge/Dataset-Kaggle-20beff)](https://www.kaggle.com/datasets/roseannejiwonpark/batterysurad)
+[![Dataset license: CC BY 4.0](https://img.shields.io/badge/Dataset%20license-CC%20BY%204.0-228b22)](https://creativecommons.org/licenses/by/4.0/)
 
-## Paper
+Official repository for the **BatterySurAD** dataset and benchmark, published at **PAKDD 2026**.
 
-Park et al., *BatterySurAD: A Dataset for Anomaly Detection on Pouch-Type Reflective Battery Surfaces with Spatial Zone Annotations*, PAKDD (published version and DOI to be added).
+## Overview
 
-## Dataset access
+BatterySurAD supports research on anomaly detection over reflective battery surfaces, where object geometry, viewing direction, and spatial location can affect anomaly appearance and model behavior.
 
-**Kaggle dataset:** _ADD VERIFIED PUBLIC KAGGLE LINK HERE_
+- **Four defect types:** Scratching, Contamination, Folding, Denting
+- **Two views:** Front and Back
+- **15 spatial zones** per surface
+- **LabelMe JSON** polygon annotations accompanying image files, subject to the availability notes below
+- **Paper benchmarks:** FastFlow, PatchCore, STPM, CutPaste, RD4AD, DFR; additional DINO/CLIP feature baselines
 
-The initial public release contains original image files and corresponding LabelMe JSON annotation files, where available. Augmented images from the full experimental dataset are **not** part of this core release. This release must not be represented as the full image set described in the paper.
+The **published study** describes 129,405 images including augmentation, and reports zone-, defect-, and view-specific analyses. **This public Kaggle v2 Core Release is smaller:** it contains only original (non-`aug`) images and available corresponding JSON files. It must not be confused with the full augmented experimental corpus.
 
-### Snapshot of available local archive inventory (2026-11-23)
+## Dataset download
 
-- 8 source ZIPs, approximately 497.90 GiB compressed.
-- 5,909 filenames classified as original images, and 59,290 as augmented images.
-- 5,916 original JSON files; some annotation/image pairs require verification.
-- Approximate unpacked original-image + original-JSON payload: 52.52 GiB.
+**[Download BatterySurAD on Kaggle](https://www.kaggle.com/datasets/roseannejiwonpark/batterysurad)**
 
-These are filename-based archive inventory counts, **not** a verified count of unique, fully paired research samples. The publication reports different dataset totals; these figures should not be silently conflated.
+### Core Release (Kaggle Version 2)
 
-## Layout
+| Defect | Original images | JSON files |
+| --- | ---: | ---: |
+| Scratching | 1,461 | 1,468 |
+| Contamination | 1,501 | 1,501 |
+| Folding | 1,452 | 1,452 |
+| Denting | 1,495 | 1,495 |
+| **Total** | **5,909** | **5,916** |
 
-Download one or more `batterysurad_originals_*.zip` shards from Kaggle, then extract them. Each shard retains the source archive name as a path prefix. File and folder names are not changed except for that prefix.
+*Counts reflect filename-based export inventory, not confirmation of every image–annotation match. In particular, the Scratching group has seven more JSON files than original images. The release uses the source archives' original filenames without renaming their individual records.*
 
-## Dataset preparation
+Kaggle Data Explorer organizes the release by defect and view:
 
-`python scripts/prepare_release.py --src PATH_TO_SOURCE_ZIPS --out PATH_TO_EMPTY_OUTPUT_DIR`
+```text
+BatterySurAD/
+├── Scratching/
+│   ├── Front/
+│   └── Back/
+├── Contamination/
+│   ├── Front/
+│   └── Back/
+├── Folding/
+│   ├── Front/
+│   └── Back/
+├── Denting/
+│   ├── Front/
+│   └── Back/
+├── dataset_manifest.csv
+└── upload_checksums.csv
+```
 
-This program selects images and JSONs without `aug` in their filenames, creates archive shards, checks their CRCs, and writes SHA-256 checksums. It does not delete or alter input archives. Running it is **not** required for users who download the prepared Kaggle archives.
+The four distribution archives are `Scratching.zip`, `Contamination.zip`, `Folding.zip`, and `Denting.zip`. Each includes its corresponding `Front/` and `Back/` folders and preserves any nested source-zone directories. When extracting locally, use one folder per ZIP (named after the defect) to obtain the layout shown above.
 
-## Baselines and reproducibility
+- `dataset_manifest.csv`: released archive name, logical path, source archive/member, and byte size for each exported image/JSON.
+- `upload_checksums.csv`: SHA-256 digest and byte size of each distribution ZIP, for integrity checking.
 
-The paper studies FastFlow, PatchCore, STPM, CutPaste, RD4AD, DFR and DINO/CLIP feature baselines. The source notebooks are currently being curated. Exact full-dataset augmentation reproduction has **not** been verified; the release should not claim bitwise reproducibility of augmented images. No benchmark numbers have been recomputed for this release.
+Run `python scripts/verify_release.py --dir PATH_TO_DOWNLOADED_ZIPS --checksums PATH_TO_CHECKSUM_CSV` to verify downloaded archives against published checksums. This check does **not** establish annotation correctness or image/JSON completeness.
 
-## License and permissions
+## Annotation and reuse notes
 
-The paper announces a CC BY 4.0 dataset release. Public redistribution of the underlying images and annotations must be confirmed with the data owner/industry collaborator before upload. Once authorized, document the exact data license and any differing code license here.
+Images are grouped by four defects, two inspection views, and zone directories. Annotation files follow the **LabelMe JSON** convention. The current Core Release is not a cleanly verified one-to-one annotation corpus: use `dataset_manifest.csv` and pair image/JSON files by relative path and basename in your data loader, and handle unmatched records explicitly.
+
+**Important:** the Core Release currently includes anomaly examples, not a verified normal-only training partition. The published DINO/CLIP study used surrogate difficulty labels based on annotation area because normal-only data were not available for that setting. Do not assume this release directly supplies standard normal-train/anomaly-test splits.
+
+## Reproducibility status
+
+The paper reports the benchmark protocols and results for classical anomaly detectors and foundation-feature baselines. The source augmentation notebooks contain multiple historical experiments; the exact final image-by-image augmentation recipe, random states, library versions, and polygon transformations have **not** been established as bitwise reproducible. Pre-generated augmented images, trained weights, model predictions, and full precomputed embeddings are **not included in this Core Release** unless explicitly added in a future version.
+
+The archived Kaggle Version 1 used size-based distribution shards; the current Version 2 presents defect-based folders. See [Release notes](docs/RELEASE_NOTES.md) for known differences.
 
 ## Citation
 
-Please cite the published PAKDD paper; add verified DOI and proceedings bibliographic details before announcing the release.
+**If you use BatterySurAD or any subset of its images or annotations in research, please cite the original paper:**
+
+> Park, J., Kim, D., Choi, B., Lee, G., & Oh, H. (2026). BatterySurAD: A Dataset for Anomaly Detection on Pouch-Type Reflective Battery Surfaces with Spatial Zone Annotations. In *Advances in Knowledge Discovery and Data Mining*, PAKDD 2026, LNCS 16598. Springer, Singapore. https://doi.org/10.1007/978-981-92-1462-4_22
+
+```bibtex
+@incollection{park2026batterysurad,
+  title     = {BatterySurAD: A Dataset for Anomaly Detection on Pouch-Type Reflective Battery Surfaces with Spatial Zone Annotations},
+  author    = {Park, Jiwon and Kim, Dohwan and Choi, Bongseok and Lee, Giljun and Oh, Hayoung},
+  booktitle = {Advances in Knowledge Discovery and Data Mining},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {16598},
+  year      = {2026},
+  publisher = {Springer},
+  doi       = {10.1007/978-981-92-1462-4_22}
+}
+```
+
+GitHub also provides **Cite this repository** using [CITATION.cff](CITATION.cff).
+
+## License
+
+**Dataset:** [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). Attribution is required by the license; formal academic paper citation is additionally requested for scholarly use. License treatment of any separately released software should be specified when that software is published.
+
+## Questions and corrections
+
+Please open a GitHub Issue and include the defect, view, zone, filename, and a description of the issue. Do not submit private credentials or restricted production information.

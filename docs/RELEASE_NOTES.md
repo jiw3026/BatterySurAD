@@ -1,24 +1,25 @@
-# BatterySurAD initial release notes
+# BatterySurAD public release notes
 
-## Scope
+## Kaggle Version 2 — defect-organized Core Release
 
-The initial public dataset package includes original images and original JSON annotations selected from eight local source archives by filename convention (`aug` absent). Augmented experimental images are excluded from this package.
+- Four category archives: `Scratching.zip`, `Contamination.zip`, `Folding.zip`, `Denting.zip`.
+- Each category contains `Front/` and `Back/`, preserving original zone-directory nesting.
+- 5,909 original images and 5,916 JSON files selected by excluding names containing the augmentation pattern (`aug`).
+- `dataset_manifest.csv` and `upload_checksums.csv` included.
+- Original source archives were not altered by the release packaging script.
 
-## Known inventory inconsistencies
+## Distinction from published paper
 
-- Archive inventory: 5,909 original image filenames; 5,916 original JSON filenames.
-- `긁힘_앞.zip` has 729 original image filenames versus 736 JSON filenames.
-- The archive inventory found 9 original images without a same-path `.json` counterpart (this may be due to naming/extensions); these are not confirmed missing annotations.
-- Paper totals and release inventory have different coverage/counting and must not be equated until reconciled.
+The PAKDD 2026 paper reports 129,405 images including augmented samples and an acquisition count of 8,559 images. Public Kaggle v2 contains 5,909 filename-classified original images, and does not represent the complete paper corpus. Counts are based on the provided eight local source archives and export convention; differences have not been exhaustively reconciled.
 
-## Reproducibility disclosure
+## Known limitations
 
-Augmentation notebooks exist in several revisions, but an exact-generation recipe (per-image parameters/seeds/environment) has not been confirmed. Do not claim that new augmentation runs reproduce the original augmented image bytes or the original paper evaluations.
+- Scratching: 1,461 original images and 1,468 JSON files, so not all records can be assumed paired.
+- Image–JSON pair validation has not been completed for this release.
+- No verified normal-only training partition is supplied.
+- Augmented image files and exact original augmentation recipes are not publicly distributed in this release.
+- Benchmarks in the article are reported historical experiments; do not infer re-computation on this Core Release.
 
-## TODO before publishing publicly
+## Version 1 / Version 2
 
-- [ ] Confirm redistribution permissions for images and labels.
-- [ ] Verify that released shards have uploaded successfully and are downloadable.
-- [ ] Add verified Kaggle URL.
-- [ ] Add confirmed DOI/citation.
-- [ ] Add curated generation scripts and baseline result tables if available.
+Version 1 was distributed as seven size-based shards (`batterysurad_originals_001`–`007`). Version 2 restructures the same filename-selected Core Release into four defect-based archives; this is a **packaging change**, not an additional data collection or experiment.

@@ -1,17 +1,16 @@
-# Large dataset archives and images should be hosted on Kaggle, not GitHub
+# Never track source data or credentials
 *.zip
 *.7z
-*.tar
-*.tar.gz
+*.rar
 *.pth
 *.pt
 *.ckpt
-*.jpg
-*.jpeg
-*.png
-*.tiff
-*.tif
+*.safetensors
+kaggle.json
+.env
+.env.*
 __pycache__/
 .ipynb_checkpoints/
-.env
-kaggle.json
+.DS_Store
+BatterySurAD_Release/
+BatterySurAD_V2/
