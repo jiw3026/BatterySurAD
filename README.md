@@ -25,7 +25,7 @@ The published paper reports 129,405 images, including augmented samples, and inv
 
 ## Dataset Access
 
-**Kaggle:** [BatterySurAD Dataset — link to be activated after upload]
+**Kaggle:** [Download BatterySurAD](https://www.kaggle.com/datasets/roseannejiwonpark/batterysurad)
 
 ### Core Release
 
