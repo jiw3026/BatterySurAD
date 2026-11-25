@@ -45,9 +45,16 @@ The initial release provides original battery surface images and corresponding L
 
 ### Download and Preparation
 
-Download the `batterysurad_originals_*.zip` archives from Kaggle and extract the required archives.
+Download the four defect-specific archives from Kaggle:
 
-The archives preserve the original source directory structure, with a source archive prefix to distinguish files.
+- `Scratching.zip`
+- `Contamination.zip`
+- `Folding.zip`
+- `Denting.zip`
+
+Each archive contains `Front/` and `Back/` directories, preserving the original zone-level subdirectories and corresponding image and LabelMe JSON files.
+
+Users may download individual defect categories according to their research requirements.
 
 ## Benchmark and Reproducibility
 
