@@ -159,6 +159,18 @@ Each archive contains `Front/` and `Back/` directories, preserving the original 
 
 Users may download individual defect categories according to their research requirements.
 
+## Data Augmentation
+
+A reference augmentation pipeline is provided in [`scripts/augmentation/`](scripts/augmentation/).
+
+The implementation supports LabelMe polygon-aware augmentation, including geometric and photometric transformations. Users can specify their own input and output directories.
+
+**Storage warning:** The original dataset contains high-resolution images, and full augmentation may generate hundreds of GiB of additional files. Run a small sample first and verify available storage before processing the entire dataset.
+
+This implementation is a reference augmentation pipeline derived from the original research workflow. It does not guarantee exact reproduction of the pre-generated augmented images used in the published PAKDD 2026 experiments.
+
+A demonstration notebook is also provided in [`notebooks/`](notebooks/).
+
 ## Benchmark and Reproducibility
 
 The BatterySurAD paper evaluates the following anomaly detection methods:
